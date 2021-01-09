@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: task-openfeign
+
+server:
+  context-path: /
+  port: 6060
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:5050/eureka/,http://127.0.0.1:5051/eureka/
+
+# Spring Boot2.x中,默认只开放info、health两个端点,否则不会暴露actuator端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+# 开启熔断、降级服务配置
+feign:
+  hystrix:
+    enabled: true

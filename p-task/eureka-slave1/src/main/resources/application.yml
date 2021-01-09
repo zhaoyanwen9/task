@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: eureka-server
+  profiles:
+    active: dev
+server:
+  port: 5051
+  context-path: /

@@ -1,0 +1,19 @@
+eureka:
+  server:
+    enable-self-preservation: true # 关闭自我保护模式(缺省为打开)
+    peer-eureka-nodes-update-interval-ms: 1000 # 集群节点更新频率,单位:毫秒
+    eviction-interval-timer-in-ms: 1000 # 设置清理间隔,单位为毫秒,缺省为60*1000ms
+    delta-retention-timer-interval-in-ms: 1000 # 移除队列里过期的租约变更记录的定时任务执行频率,30*1000
+    retention-time-in-m-s-in-delta-queue: 1000 # 租约变更记录过期时长,3*60*1000
+  instance:
+    hostname: slave1
+    lease-renewal-interval-in-seconds: 3 # 心跳时间，即服务续约间隔时间(缺省为30s)
+    lease-expiration-duration-in-seconds: 3 # 发呆时间 or 服务失效时间,等待下一次心跳的超时时间,若没收到心跳,则移除instance(缺省为90s)
+  client:
+    register-with-eureka: false
+    fetch-registry: false # 是否从Eureka注册中心获取注册信息,默认:true
+    registry-fetch-interval-seconds: 3 # 客户端拉取服务注册信息间隔,默认为30秒
+    health-check:
+      enabled: true # 否启用客户端健康检查,启健康检查依赖spring-boot-starter-actuator
+    service-url:
+      defaultZone: http://master:5050/eureka/

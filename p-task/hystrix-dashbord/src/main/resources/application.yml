@@ -1,0 +1,12 @@
+spring:
+  application: 
+    name: hystrix-dashboard
+    
+server: 
+  context-path: /
+  port: 4040
+
+# hystrix-dashboard
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: "127.0.0.1"

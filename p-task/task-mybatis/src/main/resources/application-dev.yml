@@ -1,0 +1,5 @@
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://127.0.0.1:5050/eureka/,http://127.0.0.1:5051/eureka/
