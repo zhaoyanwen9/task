@@ -22,3 +22,22 @@ management:
 feign:
   hystrix:
     enabled: true
+
+# openfeign依赖于ribbon的,所以配置ribbon超时配置,ribbon配置项必须使用驼峰,使用中横线会失效
+ribbon:
+  # ribbon远程请求连接/调用的超时时间5秒,默认值2000
+  ConnectTimeout: 5000
+  # 负载均衡超时时间,默认值5000,连接后的等待处理的超时时间30钟
+  ReadTimeout: 1800000
+  # 最大重试次数,当注册中心中可以找到服务,但是服务连不上时将会重试.默认0,否则会出现幂等性的问题,查询的无所谓
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 0 # 切换实例的重试次数
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            # 触发熔断的超时时间
+            timeoutInMilliseconds: 1800000

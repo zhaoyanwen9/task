@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <!--
+        Mybatis本身只支持一级缓存(sql session); 提供二级缓存的接入能力(namespace) - 关键点二级缓存是基于mapper映射文件的namespace
+        Mybaits一共有两级缓存: 一级缓存的配置 key 是 localCacheScope,而二级缓存的配置 key 是 cacheEnabled
+        一级缓存是本地或者说局部缓存,它不能被关闭,只能配置缓存范围.SESSION 或者 STATEMENT
+        二级缓存才是 mybatis 的正统,功能应该会更强大些
+
+        一级缓存只在同一 SESSION 或者 STATEMENT 之间共享,二级缓存可以跨 SESSION
+        二级缓存 cacheEnabled 只是个总开关,如果要让二级缓存真正生效还需要在mapper xml 文件中加入 <cache />
+
+        一级缓存在同一个session中
+        二级缓存可以跨session,但也只能在同一 namespace 中,所谓 namespace 即 mapper xml 文件中
+        -->
+
+        <!-- 一级缓存 -->
+        <!--        <setting name="localCacheScope" value="SESSION"/>-->
+        <!-- 关闭一级缓存: MyBatis的一级缓存最大范围是SqlSession内部,有多个SqlSession或者分布式的环境下,数据库写操作会引起脏数据,建议设定缓存级别为Statement -->
+        <setting name="localCacheScope" value="STATEMENT"/>
+        <!-- 二级缓存: 二级缓存全局缓存 -->
+        <setting name="cacheEnabled" value="true"/>
+        <!--<setting name="cacheEnabled" value="false"/>-->
+    </settings>
+    <typeAliases>
+        <typeAlias alias="Integer" type="java.lang.Integer"/>
+        <typeAlias alias="Long" type="java.lang.Long"/>
+        <typeAlias alias="HashMap" type="java.util.HashMap"/>
+        <typeAlias alias="LinkedHashMap" type="java.util.LinkedHashMap"/>
+        <typeAlias alias="ArrayList" type="java.util.ArrayList"/>
+        <typeAlias alias="LinkedList" type="java.util.LinkedList"/>
+        <typeAlias alias="AliasTaskEntity" type="com.nz.test.entity.AliasTaskEntity"/>
+    </typeAliases>
+</configuration>

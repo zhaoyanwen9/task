@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: task-jpa
+  profiles:
+    active: dev
+server:
+  port: 8030
+  context-path: /

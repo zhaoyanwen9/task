@@ -1,0 +1,58 @@
+server:
+  port: 7070
+
+spring:
+  application:
+    name: zuul
+  zipkin:
+    base-url: http://127.0.0.1:9411/
+    discoveryClientEnabled: false
+    sender:
+      type: web  # 设置使用http的方式传输数据
+  sleuth:
+    sampler:
+      percentage: 1.0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:5050/eureka/,http://127.0.0.1:5051/eureka/
+
+# Spring Boot2.x中,默认只开放info、health两个端点,否则不会暴露actuator端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+# openfeign依赖于ribbon的
+ribbon:
+  ConnectTimeout: 5000
+  ReadTimeout: 1800000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 0
+
+#熔断超时时长
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecond: 60000
+
+# 默认context-path是/zuul
+zuul:
+  # servlet-path: /
+  prefix: /nz
+  ignored-services: '*'
+  sensitive-headers: Cookie,Set-Cookie,Authorization # 指定全局敏感header，默认是Cooki,Set-Cookie,Authorization
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
+  routes:
+    task-route: # 路由名称,自定义
+      path: /t-opf/**
+      service-id: task-openfeign
+
+

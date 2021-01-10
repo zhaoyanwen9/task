@@ -23,8 +23,12 @@
 		<module>eureka-master</module>
 		<module>eureka-slave1</module>
 		<module>hystrix-dashbord</module>
+		<module>zuul</module>
 		<module>task-openfeign</module>
+		<module>task-base</module>
 		<module>task-mybatis</module>
+		<module>task-mybatisplus</module>
+		<module>task-jpa</module>
 	</modules>
 
 	<dependencies>

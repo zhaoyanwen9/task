@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nz.test.mapper.TaskMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"
+           eviction="LRU"
+           flushInterval="5000"
+           size="1"
+           readOnly="true"
+           blocking="true">
+    </cache>
+
+    <!--
+    resultType,resultMap不能同时使用
+    -->
+
+    <!--
+    resultMap:
+    1.当sql的列名和实体类的属性名不一致时:
+    result代表其属性:
+        property是实体类的字段或属性;
+        column是sql查询的列名;
+    id代表resultMap的主键;
+    2.#{}是预编译处理，MyBatis在处理#{}时,它会将sql中的#{}替换为?,然后调用PreparedStatement的set方法来赋值,传入字符串后,会在值两边加上单引号,使用占位符的方式提高效率,可以防止sql注入
+    ${}:表示拼接sql串,将接收到参数的内容不加任何修饰拼接在sql中,可能引发sql注入
+    -->
+
+    <resultMap id="aliasTaskEntity" type="AliasTaskEntity">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
+        <result property="status" column="status"/>
+        <result property="cTime" column="c_time"/>
+        <result property="sTime" column="s_time"/>
+        <result property="eTime" column="e_time"/>
+    </resultMap>
+    <sql id="column_list">
+        id,
+        name,
+        type,
+        status,
+        c_time,
+        s_time,
+        e_time
+    </sql>
+    <select id="getByName" resultMap="aliasTaskEntity">
+        select
+        <include refid="column_list"/>
+        from
+        tb_task
+        <where>
+            <if test=" name != null ">
+                <!--
+                https://baijiahao.baidu.com/s?id=1654523881624000395&wfr=spider&for=pc
+                1、2会引发sql注入
+                3. 可以借助mysql的函数,既能解决sql注入又能在配置文件中写%
+                -->
+                <!-- 1. name like '%${name}%' -->
+                <!-- 2. name like concat('%','${name}','%') -->
+                name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+
+    <!--
+    resultType,resultMap不能同时使用
+    -->
+
+    <!--
+    resultMap:
+    1.当sql的列名和实体类的属性名不一致时
+        property是实体类的字段名;
+        column是sql查询的列名;
+    -->
+    <!--
+    <resultMap id="" type="">
+        <result property="" column=""></result>
+    </resultMap>
+    -->
+
+    <!--
+    resultType:
+    1.Java的基本类型及其包装类: 如果只是返回一个值,比如String或者int,那么直接用resultType;
+    2.对象类型,自己定义的实体类:
+        如果sql查询结果返回的列名和实体类中的字段名一致,那么使用resultType,MyBatis自动把查询结果赋值给和字段名一致的字段;
+        如果sql查询结果返回的列名和实体类中的字段名不一致,那么sql语句可使用别名的方式使其一致 或 使用 resultMap;
+    3.Map类型
+        单条记录: resultType = Map
+        多条记录：resultType = Map中value的类型
+    4.List类型,集合的类型可以为1,2,3中提到的类型
+    -->
+
+    <!-- 返回值为基本类型: resultType为 基本类型 或 基本类型对应的包装类 -->
+    <select id="getCount" resultType="int">
+        select count(*) from tb_task
+    </select>
+
+    <!-- 返回值为实体类, 实体类和数据库字段一致,resultType为 对象的全类名 或 包名 + 对象的全类名 -->
+    <select id="getById" resultType="TaskEntity">
+        select * from tb_task where id = #{id}
+    </select>
+
+    <!-- 返回值为List类型, resultType为 List中对象的类型, 返回的类型是List<T> -->
+    <select id="getByRp" resultType="com.nz.test.entity.TaskEntity">
+        select * from tb_task limit #{page},#{size}
+    </select>
+
+    <!-- 返回单条记录的Map时, resultType为 Map; -->
+    <select id="getCruxInfo" resultType="map">
+        select id,name,type,status from tb_task where id = #{id}
+    </select>
+
+    <sql id="taskColumns">${alias}.id,${alias}.status</sql>
+    <select id="getMany" resultType="map">
+        select
+        <include refid="taskColumns">
+            <property name="alias" value="t1"/>
+        </include>
+        ,
+        <include refid="taskColumns">
+            <property name="alias" value="t2"/>
+        </include>
+        from
+        tb_task t1
+        cross join
+        tb_task_history t2
+        where t1.id = #{id}
+    </select>
+
+    <!-- 返回多条记录的Map时, resultType为 Map, 返回的类型是List<Map<String, Object>> -->
+    <sql id="table_name">
+        tb_${prefix}
+    </sql>
+    <sql id="key_include">
+        from
+        <include refid="${include_target}"/>
+    </sql>
+    <select id="getAll" resultType="map">
+        select
+        id
+        <include refid="key_include">
+            <property name="prefix" value="task"/>
+            <property name="include_target" value="table_name"/>
+        </include>
+    </select>
+</mapper>
