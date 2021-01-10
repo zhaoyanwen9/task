@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nz.test.dao.mapper.TaskMapper">
+    <!-- <resultMap>标签用于封装sql的查询结果，可以包装成一个简单POJO对象，也可以包装成我们自定义的对象，只要我们使用<result>子标签指定好查询结果的列和对象的属性之间的对应关系就好了。 -->
+    <!--描述如何从数据库结果集中加载对象，是最复杂也是最强大的元素-->
+    <resultMap id="singleTaskInfo" type="alias_task">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--可被其它语句引用的可重用语句块-->
+    <sql id="base_column_list">
+        id,
+        name
+    </sql>
+
+    <!-- select 映射查询语句 -->
+    <!-- 解决办法：将resultType改成resultMap即可,Type对应的是对象类,所以抛出ClassNotFoundException的异常 -->
+    <select id="getById" parameterType="java.lang.Integer" resultMap="singleTaskInfo">
+        select
+        <include refid="base_column_list"/>
+        from tb_task
+        <where>
+            <if test=" id > 0 ">
+                id = #{id}
+            </if>
+        </where>
+        <!-- where id = #{id} -->
+        <!-- <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>-->
+    </select>
+
+    <!-- #################################### -->
+
+    <sql id="ref">
+        ${alias}.id as "task_id",
+        ${alias}.name,
+        ${task_status}
+    </sql>
+
+    <select id="selectById" parameterType="int" resultType="hashmap">
+        select
+        <include refid="ref">
+            <property name="alias" value="task"/>
+            <property name="task_status" value="status"/>
+        </include>
+        from tb_task task
+        where id = #{id}
+    </select>
+
+    <!-- ######## -->
+    <sql id="sometable">
+        ${prefix}_task
+    </sql>
+    <sql id="someinclude">
+        from
+        <include refid="${include_target}"/>
+    </sql>
+    <select id="selectById_bak" resultType="map">
+        select
+        id, name, status
+        <include refid="someinclude">
+            <property name="prefix" value="tb"/>
+            <property name="include_target" value="sometable"/>
+        </include>
+        where id = #{id}
+    </select>
+
+    <!-- #################################### -->
+
+    <insert id="saveOneTask" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_task (name)
+        values (#{name})
+    </insert>
+
+    <!-- #################################### -->
+
+    <insert id="saveManyTask" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_task (name) values
+        <foreach item="item" collection="list" separator=",">
+            (#{item.name})
+        </foreach>
+    </insert>
+
+    <!-- #################################### -->
+
+    <update id="updateTaskById">
+        update tb_task
+        <set>
+            <if test="name!=null">
+                name=#{name}
+            </if>
+        </set>
+        <!-- name = #{name} -->
+        where id = #{id}
+    </update>
+
+    <!-- #################################### -->
+
+    <delete id="deleteTaskById">
+        delete from tb_task where id = #{id}
+    </delete>
+
+</mapper>

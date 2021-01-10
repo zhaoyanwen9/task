@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: task-shiro
+  profiles:
+    active: dev
+server:
+  port: 4050
+  context-path: /
