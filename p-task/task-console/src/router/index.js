@@ -1,55 +1,53 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Router from 'vue-router'
 
-Vue.use(VueRouter)
+import Login from '../pages/login/login'
+import NotFound from '../pages/errorPage/404'
+import Forbidden from '../pages/errorPage/403'
+import Layout from '../pages/layout/index'
+import Home from '../pages/home/index'
 
-const routes = [
-  {
-    path: '/',
-    name: 'Login',
-    component: () => import(/* webpackChunkName: "about" */ '../components/Login.vue')
-  },
-  {
-    path: '/home',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+Vue.use(Router)
 
-const router = new VueRouter({
-  routes
+/* 初始路由 */
+export default new Router({
+    routes: [
+        {
+            path: '/login',
+            component: Login
+        }
+    ]
 })
 
-export default router
-
-// https://www.cnblogs.com/yuxi2018/p/11967311.html
-// 路由守卫
-router.beforeEach((to, from, next) => {
-  debugger;
-  console.log("路由守卫 ->" + to.meta.auth)
-  // 判断要进入的路由是否需要认证
-  if(to.meta.auth) {
-      // 通过token令牌机制判断是否已经登录
-      const token = localStorage.getItem('token');
-      if (token) {
-          next(); // 如果登录则放行，进入路由
-      } else {
-        // 跳转，并携带重定向地址
-          next({
-             path: '/login', 
-             query: {
-                 redirect: to.path 
-             }
-          });
-      }
-  } else {
-      // 不需要验证的模块，直接放行
-      next();
-  }
-});
+/* 准备动态添加的路由 */
+export const DynamicRoutes = [
+    {
+        path: '',
+        component: Layout,
+        name: 'container',
+        redirect: 'home',
+        meta: {
+            requiresAuth: true,
+            name: '首页'
+        },
+        children: [
+            {
+                path: 'home',
+                component: Home,
+                name: 'home',
+                meta: {
+                    name: '首页',
+                    icon: 'icon-home'
+                }
+            }
+        ]
+    },
+    {
+        path: '/403',
+        component: Forbidden
+    },
+    {
+        path: '*',
+        component: NotFound
+    }
+]

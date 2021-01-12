@@ -1,35 +1,26 @@
 <template>
     <div id="app">
-        <el-container>
-            <el-main>
-                <router-view/>
-            </el-main>
-        </el-container>
+        <router-view/>
     </div>
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-
-            };
-        },
-        methods: {
-        },
-        mounted() {
-
-        }
-    }
+export default {
+    name: 'App'
+}
 </script>
 
 <style lang="scss">
-    #app {
+    #app{
+        height:100%;
         font-family: Avenir, Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: left;
         color: #2c3e50;
+        >div{
+            height: 100%;
+        }
     }
 
     /**

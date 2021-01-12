@@ -1,4 +1,5 @@
 module.exports = {
+    runtimeCompiler: true,
     // axios域代理，解决axios跨域问题
     publicPath: '/task',
     lintOnSave: false,

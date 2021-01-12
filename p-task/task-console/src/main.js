@@ -1,42 +1,63 @@
 import Vue from 'vue'
-import App from './App.vue'
-import Vuex from 'vuex'
-import router from './router'
-import store from './store'
+import App from '@/App'
+import store from '@/store/index'
+import router from '@/router/index'
+
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import './styles/index.scss'
+
+import "./css/base.css";
+
+import axios from './config/httpConfig'
+import * as globalFilter from './filters/filters'
+
+Vue.prototype.$http = axios
+
+Object.keys(globalFilter).forEach(key => {
+    Vue.filter(key, globalFilter[key])
+})
+
+Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+router.beforeEach((to, from, next) => {
+    if (!store.state.UserToken) {
+        if (
+            to.matched.length > 0 &&
+            !to.matched.some(record => record.meta.requiresAuth)
+        ) {
+            next()
+        } else {
+            next({ path: '/login' })
+        }
+    } else {
+        if (!store.state.permission.permissionList) {
+            store.dispatch('permission/FETCH_PERMISSION').then(() => {
+                next({ path: to.path })
+            })
+        } else {
+            if (to.path !== '/login') {
+                next()
+            } else {
+                next(from.fullPath)
+            }
+        }
+    }
+})
 
-import "./css/base.css"; // global css
+router.afterEach((to, from, next) => {
+    var routerList = to.matched
+    store.commit('setCrumbList', routerList)
+    store.commit('permission/SET_CURRENT_MENU', to.name)
+})
 
-Vue.use(ElementUI);
-
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-Vue.use(VueAxios, axios)
-Vue.prototype.$axios = axios
-
-/**
- * http://mint-ui.github.io/#!/zh-cn
- * 安装
- * Vue 1.x
- * npm install mint-ui@1 -S
- * Vue 2.0
- * npm install mint-ui -S
- */
-// 引入全部组件
-// import Mint from 'mint-ui';
-// import 'mint-ui/lib/style.css'
-// Vue.use(Mint);
-//
-// import { Swipe, SwipeItem } from 'mint-ui';
-// Vue.component(Swipe.name, Swipe);
-// Vue.component(SwipeItem.name, SwipeItem);
-
+/* eslint-disable no-new */
 new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+    el: '#app',
+    router,
+    store,
+    components: { App },
+    template: '<App/>'
+})
