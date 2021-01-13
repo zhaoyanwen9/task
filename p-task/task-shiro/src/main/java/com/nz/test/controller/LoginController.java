@@ -1,4 +1,4 @@
-package com.nz.test.web;
+package com.nz.test.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.nz.test.entity.SysUser;
@@ -33,6 +33,7 @@ public class LoginController {
 
     /**
      * 登录 https://blog.csdn.net/myth_g/article/details/82113150
+     *
      * @param username
      * @param password
      * @param request
@@ -41,8 +42,8 @@ public class LoginController {
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Map<String, Object> submitLogin(@RequestParam(value = "username") String username,
-                              @RequestParam(value = "password") String password,
-                              HttpServletRequest request) {
+                                           @RequestParam(value = "password") String password,
+                                           HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>();
         try {
             logger.info("#### 1. 入参 {}, {}, {}", username, password, request.getSession().getId());
@@ -75,8 +76,10 @@ public class LoginController {
                 boolean isPer = subject.isPermitted("xiaoming:run");
                 // logger.info("当前用户: {} {} {}", subject.getPrincipals().getPrimaryPrincipal(), isRole, isPer);
                 map.put("code", 200);
-                map.put("msg", "登录成功");
-                map.put("token", subject.getSession().getId());
+                map.put("message", "登录成功");
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("token", subject.getSession().getId());
+                map.put("data", jsonObject);
                 try {
                     // 设置session过期时间
                     session.setTimeout(25000);
@@ -113,6 +116,7 @@ public class LoginController {
 
     /**
      * 登录
+     *
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -124,6 +128,7 @@ public class LoginController {
 
     /**
      * 欢迎页
+     *
      * @param request
      * @return
      */
@@ -145,6 +150,7 @@ public class LoginController {
 
     /**
      * 被踢出后跳转的页面
+     *
      * @return
      */
     @RequestMapping(value = "/kickout", method = RequestMethod.GET)

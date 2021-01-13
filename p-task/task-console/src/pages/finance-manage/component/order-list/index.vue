@@ -1,10 +1,6 @@
 <template>
     <div>
-       订单列表
-       订单列表
-       订单列表
-       订单列表
-       订单列表
+       订单列表aaaa
     </div>
 </template>
 

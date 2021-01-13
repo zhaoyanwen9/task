@@ -1,4 +1,4 @@
-package com.nz.test.dao.mapper;
+package com.nz.test.mapper;
 
 import com.nz.test.entity.SysResources;
 import org.apache.ibatis.annotations.Param;

@@ -69,7 +69,7 @@ http.get = function(url, options) {
         instance
             .get(url, options)
             .then(response => {
-                if (response.code === 0) {
+                if (response.code === 200) {
                     resolve(response.data)
                 } else {
                     Message.error({
@@ -89,7 +89,7 @@ http.post = function(url, data, options) {
         instance
             .post(url, data, options)
             .then(response => {
-                if (response.code === 0) {
+                if (response.code === 200) {
                     resolve(response.data)
                 } else {
                     Message.error({

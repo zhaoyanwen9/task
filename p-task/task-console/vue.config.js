@@ -9,14 +9,14 @@ module.exports = {
         // https: false,
         // open: false,
         proxy: {
-            '/json': {
-                target: 'http://localhost:4060', //路径指向本地主机地址及端口号
-                ws: true, 
-                changeOrigin: true,
-                pathRewrite:{
-                    '^/jaon': '/data' //路径转发代理
-                }
-            },
+            // '/json': {
+            //     target: 'http://localhost:4060', //路径指向本地主机地址及端口号
+            //     ws: true, 
+            //     changeOrigin: true,
+            //     // pathRewrite:{
+            //     //     '^/jaon': '/data' //路径转发代理
+            //     // }
+            // },
             '/task/gateway/zuul-task': {
                 // target: 'http://localhost:5050',
                 target: 'http://localhost:7070',

@@ -1,4 +1,4 @@
-package com.nz.test.web;
+package com.nz.test.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.nz.test.entity.Task;

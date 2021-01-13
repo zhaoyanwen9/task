@@ -13,7 +13,7 @@
         <typeAlias alias="ArrayList" type="java.util.ArrayList"/>
         <typeAlias alias="LinkedList" type="java.util.LinkedList"/>
 
-        <typeAlias type="com.nz.test.dao.domain.Task" alias="alias_task"/>
+        <typeAlias type="com.nz.test.entity.Task" alias="alias_task"/>
 
         <package name="com.nz.test.dao.mapper"/>
     </typeAliases>

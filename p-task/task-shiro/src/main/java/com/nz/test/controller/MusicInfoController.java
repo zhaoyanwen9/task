@@ -1,4 +1,4 @@
-package com.nz.test.web;
+package com.nz.test.controller;
 
 import com.nz.test.entity.SysUser;
 import com.nz.test.service.UserService;

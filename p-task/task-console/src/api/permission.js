@@ -5,12 +5,6 @@ export function fetchPermission() {
 }
 
 export function login() {
-    let response = {};
-    axios.post('/api/auth/login?username=admin1&password=admin1').then(response => {
-        console.log("===="+response);
-        this.response = response;
-    }).catch(function (error) {
-        console.log(error);
-    });
-    return response
+    // return axios.get('/json/login.json');
+    return axios.post('/api/auth/login?username=admin1&password=admin1');
 }

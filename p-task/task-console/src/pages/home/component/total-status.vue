@@ -3,11 +3,14 @@
         <el-row class="grow">
             <el-col :md="2" :lg="4" class="grow__item">
                 <div class="grow__item--detail clearfix">
+                    <div class="grow__item--icon iconfont icon-home"></div>
                     <div>
+                        
+                        1.
                         <p class="grow__item--number">￥455025元</p>
                         <p class="grow__item--type">本月销售总额</p>
                     </div>
-                    <div class="grow__item--icon iconfont icon-home"></div>
+                    
                 </div>
             </el-col>
         </el-row>

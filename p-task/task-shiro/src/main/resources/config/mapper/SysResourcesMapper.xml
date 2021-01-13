@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.nz.test.dao.mapper.SysResourcesMapper" >
-  <resultMap id="BaseResultMap" type="com.nz.test.dao.domain.SysResources" >
+<mapper namespace="com.nz.test.mapper.SysResourcesMapper" >
+  <resultMap id="BaseResultMap" type="com.nz.test.entity.SysResources" >
     <!--
       WARNING - @mbg.generated
     -->

@@ -1,4 +1,4 @@
-package com.nz.test.dao.mapper;
+package com.nz.test.mapper;
 
 public interface SysRoleResourcesMapper {
 }

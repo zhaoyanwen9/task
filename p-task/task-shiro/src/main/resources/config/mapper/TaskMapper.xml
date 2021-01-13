@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.nz.test.dao.mapper.TaskMapper">
+<mapper namespace="com.nz.test.mapper.TaskMapper">
     <!-- <resultMap>标签用于封装sql的查询结果，可以包装成一个简单POJO对象，也可以包装成我们自定义的对象，只要我们使用<result>子标签指定好查询结果的列和对象的属性之间的对应关系就好了。 -->
     <!--描述如何从数据库结果集中加载对象，是最复杂也是最强大的元素-->
     <resultMap id="singleTaskInfo" type="alias_task">

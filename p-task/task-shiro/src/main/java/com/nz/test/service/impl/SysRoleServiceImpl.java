@@ -1,6 +1,6 @@
 package com.nz.test.service.impl;
 
-import com.nz.test.dao.mapper.SysRoleMapper;
+import com.nz.test.mapper.SysRoleMapper;
 import com.nz.test.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
