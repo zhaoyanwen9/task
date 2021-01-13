@@ -11,6 +11,12 @@ const Goods = () => import('../pages/goods-manage')
 const GoodsList = () => import('../pages/goods-manage/goods-list')
 const GoodsClassify = () => import('../pages/goods-manage/goods-classify')
 
+/* 财务管理 */
+const Finance = () => import('../pages/finance-manage')
+const FinanceOrderList = () => import('../pages/finance-manage/component/order-list')
+const FinanceProductManage = () => import('../pages/finance-manage/component/product-manage')
+const FinanceReturnGoods = () => import('../pages/finance-manage/component/return-goods')
+
 /* 需要权限判断的路由 */
 const dynamicRoutes = [
     {
@@ -95,6 +101,44 @@ const dynamicRoutes = [
                 component: GoodsClassify,
                 meta: {
                     name: '产品分类',
+                    icon: 'icon-product-manage'
+                }
+            }
+        ]
+    },
+    {
+        path: '/finance',
+        component: Finance,
+        name: 'finance',
+        meta: {
+            name: '财务管理',
+            icon: 'icon-order-manage'
+        },
+        children: [
+            {
+                path: 'list1',
+                name: 'order-list1',
+                component: FinanceOrderList,
+                meta: {
+                    name: '列表1',
+                    icon: 'icon-home'
+                }
+            },
+            {
+                path: 'classify1',
+                name: 'goods-classify1',
+                component: FinanceProductManage,
+                meta: {
+                    name: '产品分类1',
+                    icon: 'icon-product-manage'
+                }
+            },
+            {
+                path: 'classify2',
+                name: 'goods-classify2',
+                component: FinanceReturnGoods,
+                meta: {
+                    name: '产品分类2',
                     icon: 'icon-product-manage'
                 }
             }

@@ -1,6 +1,6 @@
 <template>
     <div>
-       生产管理
+       生产管理qqqqq
     </div>
 </template>
 

@@ -90,6 +90,13 @@ public class LoginController {
                     return map;
                 }
             }
+
+            map.put("code", 200);
+            map.put("message", "登录成功");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("token", subject.getSession().getId());
+            map.put("data", jsonObject);
+
             // 实体信息(Principals)
             SysUser user = (SysUser) subject.getPrincipal();
             logger.info("#### 实体: {}", JSONObject.toJSON(user));
