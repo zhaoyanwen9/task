@@ -1,9 +1,16 @@
 import axios from '@/config/httpConfig'
 
 export function fetchPermission() {
-    return axios.get('/static/permission.json')
+    return axios.get('/json/permission.json')
 }
 
 export function login() {
-    return axios.get('/static/login.json')
+    let response = {};
+    axios.post('/api/auth/login?username=admin1&password=admin1').then(response => {
+        console.log("===="+response);
+        this.response = response;
+    }).catch(function (error) {
+        console.log(error);
+    });
+    return response
 }

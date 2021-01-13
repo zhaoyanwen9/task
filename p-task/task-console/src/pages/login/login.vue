@@ -27,9 +27,11 @@ export default {
         }
     },
     methods: {
-        async login() {
+        // async
+        login() {
             try {
-                let data = await login()
+                let data = login(); // await
+                debugger;
                 let token = data.token
                 this.$store.commit('LOGIN_IN', token)
                 this.$router.replace('/')
