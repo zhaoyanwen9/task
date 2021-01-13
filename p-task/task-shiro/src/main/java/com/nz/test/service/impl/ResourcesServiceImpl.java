@@ -1,6 +1,6 @@
 package com.nz.test.service.impl;
 
-import com.nz.test.dao.domain.SysResources;
+import com.nz.test.entity.SysResources;
 import com.nz.test.dao.mapper.SysResourcesMapper;
 import com.nz.test.service.ResourcesService;
 import org.springframework.beans.factory.annotation.Autowired;

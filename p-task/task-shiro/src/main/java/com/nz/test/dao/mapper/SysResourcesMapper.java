@@ -1,6 +1,6 @@
 package com.nz.test.dao.mapper;
 
-import com.nz.test.dao.domain.SysResources;
+import com.nz.test.entity.SysResources;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;

@@ -2,7 +2,7 @@ package com.nz.test.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.nz.test.dao.domain.SysUser;
+import com.nz.test.entity.SysUser;
 import com.nz.test.dao.mapper.SysResourcesMapper;
 import com.nz.test.dao.mapper.SysUserMapper;
 import com.nz.test.service.UserService;

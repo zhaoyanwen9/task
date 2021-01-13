@@ -1,6 +1,6 @@
 package com.nz.test.utils;
 
-import com.nz.test.dao.domain.SysUser;
+import com.nz.test.entity.SysUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;

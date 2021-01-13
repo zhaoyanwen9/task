@@ -1,7 +1,7 @@
 package com.nz.test.web;
 
 import com.alibaba.fastjson.JSON;
-import com.nz.test.dao.domain.Task;
+import com.nz.test.entity.Task;
 import com.nz.test.service.TaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

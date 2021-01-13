@@ -1,6 +1,6 @@
 package com.nz.test.service;
 
-import com.nz.test.dao.domain.SysUser;
+import com.nz.test.entity.SysUser;
 
 import java.util.Set;
 

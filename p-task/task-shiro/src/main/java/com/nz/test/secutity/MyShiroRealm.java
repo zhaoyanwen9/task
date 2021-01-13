@@ -1,7 +1,7 @@
 package com.nz.test.secutity;
 
 import com.alibaba.fastjson.JSONObject;
-import com.nz.test.dao.domain.SysUser;
+import com.nz.test.entity.SysUser;
 import com.nz.test.service.SysRoleService;
 import com.nz.test.service.UserService;
 import org.apache.shiro.authc.*;

@@ -1,7 +1,7 @@
 package com.nz.test.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.nz.test.dao.domain.Task;
+import com.nz.test.entity.Task;
 
 import java.util.HashMap;
 import java.util.List;

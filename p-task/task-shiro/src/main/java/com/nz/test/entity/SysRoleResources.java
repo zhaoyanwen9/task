@@ -1,4 +1,4 @@
-package com.nz.test.dao.domain;
+package com.nz.test.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;

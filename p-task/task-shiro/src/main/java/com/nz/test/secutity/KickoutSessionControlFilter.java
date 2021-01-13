@@ -1,7 +1,7 @@
 package com.nz.test.secutity;
 
 import com.alibaba.fastjson.JSON;
-import com.nz.test.dao.domain.SysUser;
+import com.nz.test.entity.SysUser;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.session.Session;

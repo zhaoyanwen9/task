@@ -1,7 +1,7 @@
 package com.nz.test.web;
 
 import com.alibaba.fastjson.JSONObject;
-import com.nz.test.dao.domain.SysUser;
+import com.nz.test.entity.SysUser;
 import com.nz.test.utils.RequestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;

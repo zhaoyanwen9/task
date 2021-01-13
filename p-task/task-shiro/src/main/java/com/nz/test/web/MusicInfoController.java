@@ -1,6 +1,6 @@
 package com.nz.test.web;
 
-import com.nz.test.dao.domain.SysUser;
+import com.nz.test.entity.SysUser;
 import com.nz.test.service.UserService;
 import com.nz.test.utils.RequestUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

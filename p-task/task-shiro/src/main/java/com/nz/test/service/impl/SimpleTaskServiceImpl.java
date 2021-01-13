@@ -1,7 +1,7 @@
 package com.nz.test.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.nz.test.dao.domain.Task;
+import com.nz.test.entity.Task;
 import com.nz.test.dao.mapper.TaskMapper;
 import com.nz.test.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
