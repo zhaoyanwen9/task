@@ -59,6 +59,7 @@ export default {
             this.$store.commit('toggleNavCollapse')
         },
         loginOut() {
+            this.$cookies.remove("JSESSIONID")
             this.$store.commit('LOGIN_OUT')
             debugger;
             /* 防止切换角色时addRoutes重复添加路由导致出现警告 */

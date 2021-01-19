@@ -6,6 +6,7 @@ import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.util.ThreadContext;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
@@ -86,13 +87,14 @@ public class ShiroConfig {
      *
      * @return
      */
-    @Bean
+    @Bean(name = "securityManager")
     public SecurityManager securityManager() {
         logger.info("#### 3. 配置核心安全事务管理器SecurityManager(外观模式)");
         // SecurityManager默认实例的是DefaultSecurityManager
         // DefaultSecurityManager defaultSecurityManager = new DefaultWebSecurityManager();
         // 管理着所有 Subject、且负责进行认证和授权、及会话、缓存的管理
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        ThreadContext.bind(securityManager);
         // Realm:域(安全数据源)
         securityManager.setRealm(myShiroRealm("3.1"));
         // 自定义缓存实现 使用redis
@@ -160,11 +162,12 @@ public class ShiroConfig {
         logger.info("{} DefaultWebSessionManager", step);
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         sessionManager.setSessionDAO(redisSessionDAO(step));
+        sessionManager.setGlobalSessionTimeout(1000 * 60);
         // shiro 的session默认放在cookie中 禁用
         // sessionManager.setSessionIdCookieEnabled(false);
         // 禁用url 重写 url; shiro请求时默认 jsessionId=id
-        // sessionManager.setSessionIdUrlRewritingEnabled(false);
-        // sessionManager.setDeleteInvalidSessions(false);
+        sessionManager.setSessionIdUrlRewritingEnabled(true);
+        sessionManager.setDeleteInvalidSessions(true);
         // sessionManager.setSessionIdCookie(simpleCookie);
         return sessionManager;
     }
@@ -207,7 +210,7 @@ public class ShiroConfig {
         redisManager.setHost("localhost");
         redisManager.setPort(6379);
         // 配置缓存过期时间
-        redisManager.setExpire(60);
+        redisManager.setExpire(6000);
         redisManager.setTimeout(0);
         // redisManager.setPassword(password);
         return redisManager;

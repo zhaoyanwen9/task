@@ -33,6 +33,7 @@ export default {
                 console.log(data);
                 let token = data.token
                 this.$store.commit('LOGIN_IN', token)
+                this.$cookies.set("JSESSIONID",token)
                 // 实现指定url跳转，这个方法不会向history栈添加记录，使用后退this.$router.back();会返回到上上一个页面。因为它的上个页面是不存在的。history栈没有记录
                 this.$router.replace('/'); // 
                 // 实现指定url跳转，这个方法会向history栈添加一个记录，使用后退this.$router.back();会返回到上一个页面

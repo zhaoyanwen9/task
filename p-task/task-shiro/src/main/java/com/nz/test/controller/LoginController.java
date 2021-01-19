@@ -96,7 +96,6 @@ public class LoginController {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("token", subject.getSession().getId());
             map.put("data", jsonObject);
-
             // 实体信息(Principals)
             SysUser user = (SysUser) subject.getPrincipal();
             logger.info("#### 实体: {}", JSONObject.toJSON(user));
@@ -118,6 +117,15 @@ public class LoginController {
         // 执行到这里说明用户已登录成功
         // logger.info("#### 登陆成功,重定向至:/auth/index");
         // return "redirect:/auth/index";
+
+        Subject subject = SecurityUtils.getSubject();
+        if (subject.isAuthenticated()) {
+            Object principal = subject.getPrincipals().getPrimaryPrincipal();
+            if (principal instanceof SysUser) {
+                logger.info("#### {}", (SysUser) principal);
+            }
+        }
+        logger.info("#### {}", map);
         return map;
     }
 
@@ -127,6 +135,7 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @ResponseBody
     public String loginPage() {
         SysUser currentLoginUser = RequestUtils.currentLoginUser();
         logger.info("#### 跳转至登录页");

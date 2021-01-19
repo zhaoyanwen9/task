@@ -16,6 +16,7 @@ public class RequestUtils {
      * @return
      */
     public static SysUser currentLoginUser() {
+        logger.info("#### 获取当前登录的用户，若用户未登录，则返回未登录 json");
         Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated()) {
             Object principal = subject.getPrincipals().getPrimaryPrincipal();

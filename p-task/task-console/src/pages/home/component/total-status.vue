@@ -18,10 +18,25 @@
 </template>
 
 <script>
+import axios from '@/config/httpConfig'
 export default {
     data() {
         return {}
-    }
+    },
+    created() {
+            this.getTableData();
+        },
+    methods: {
+            getTableData() {
+                debugger;
+                axios.get('/api/rest/redis/util/v1/redisGetAllKeyValue').then(response => {
+                    debugger
+                    
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        }
 }
 </script>
 

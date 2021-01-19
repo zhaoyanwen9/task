@@ -27,6 +27,7 @@
 		<module>task-openfeign</module>
 		<module>task-base</module>
 		<module>task-shiro</module>
+		<module>shiro</module>
 		<module>task-mybatis</module>
 		<module>task-mybatisplus</module>
 		<module>task-jpa</module>
