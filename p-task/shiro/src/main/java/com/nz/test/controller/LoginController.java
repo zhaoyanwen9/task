@@ -43,7 +43,6 @@ public class LoginController {
         Role role = roleService.findById(1L);
         String token = TokenUtil.getToken(role.getRoleName(), role.getId().toString(), request.getRemoteAddr());
         return token;
-
         // 添加用户认证信息
         // UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(user.getName(), user.getPassword());
         // 进行验证，这里可以捕获异常，然后返回对应信息

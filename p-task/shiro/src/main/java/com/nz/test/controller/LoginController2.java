@@ -71,7 +71,6 @@ public class LoginController2 {
             String token = TokenUtil.getToken(role.getRoleName(), role.getId().toString(), request.getRemoteAddr());
             return token;
         } catch (Exception e) {
-            e.printStackTrace();
             return "error";
         }
     }

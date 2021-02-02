@@ -1,5 +1,8 @@
 package com.nz.test.java.base.thread;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Thread继承与Runnable接口实现的区别
  * 实现Runnable接口创建多线程的好处：
@@ -19,22 +22,21 @@ public class MyThread {
          *      run():单线程,由main方法来执行
          */
 
-        ThreadExtends anThread = new ThreadExtends();
-        anThread.setName("A");
-        anThread.start();
+        // ThreadExtends anThread = new ThreadExtends();
+        // anThread.setName("A线程");
+        // anThread.start();
 
-        new ThreadExtends("B").start();
-
-        for (int i = 0; i < 5; i++) {
-            Thread.sleep(100);
-            System.out.println("y主线程" + Thread.currentThread().getName() + ": " + i);
-        }
+        //new ThreadExtends("B线程").start();
+        //for (int i = 0; i < 1; i++) {
+        //    System.out.println("y主线程" + Thread.currentThread().getName() + ": " + i);
+        //}
 
         // 1.创建
-        RunnableImpl runnableThread = new RunnableImpl();
+        List<Integer> list = new ArrayList<>();
+        RunnableImpl runnableThread = new RunnableImpl(list);
         // 2.多个Thread共用一个runnableThread资源
-        Thread t1 = new Thread(runnableThread, "C");
-        Thread t2 = new Thread(runnableThread, "D");
+        Thread t1 = new Thread(runnableThread, "线程C");
+        Thread t2 = new Thread(runnableThread, "线程D");
         // 3.启动
         t1.start();  //新线程开启
         t2.start();  //新线程开启
